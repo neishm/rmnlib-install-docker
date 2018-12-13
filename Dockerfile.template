@@ -28,4 +28,5 @@ RUN make auto-install VGRID_RELEASE=6.4
 # Auto-load profile for interactive sessions.
 RUN echo . $HOME/.profile_armnlib >> $HOME/.bashrc
 RUN echo . r.load.dot dev/gfortran >> $HOME/.bashrc
+RUN echo ulimit -s unlimited >> $HOME/.bashrc
 WORKDIR /home/ssm
