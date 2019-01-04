@@ -9,11 +9,8 @@ RUN apt-get update && apt-get install -y git make libssl-dev ksh gfortran libope
 RUN apt-get install -y vim
 
 # Create non-privileged account for compiling and installing ssm packages.
-# Use the same userid and groupid as the host user to make it easier to
-# mount volumes and do file I/O with the host system.
-# Don't crash if this group id already exists.
-RUN groupadd -g $GID ssm || true
-RUN useradd -g $GID -u $UID -m ssm
+RUN groupadd -g 999 ssm || true
+RUN useradd -g 999 -u 999 -m ssm
 
 USER ssm
 

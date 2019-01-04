@@ -10,6 +10,6 @@ all: 14.04 16.04 18.04
 
 %.04: Dockerfile.template
 	echo "# Auto-generated from $< - do not edit!\n" > Dockerfile
-	sed 's/$$DISTRO/ubuntu:$@/;s/$$UID/'`id -u`'/;s/$$GID/'`id -g`'/;s/$$VGRID_RELEASE/$(VGRID_RELEASE)/' $< >> Dockerfile
+	sed 's/$$DISTRO/ubuntu:$@/;s/$$VGRID_RELEASE/$(VGRID_RELEASE)/' $< >> Dockerfile
 	sudo docker build --tag rmnlib-install-$@ $(EXTRA_TAGS) .
 	@echo rmnlib-install-$@ is now ready to use.
