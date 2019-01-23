@@ -1,0 +1,14 @@
+diff --git a/lib/ssmuse/ssmuse_platforms.sh b/lib/ssmuse/ssmuse_platforms.sh
+index bf5b9f4..aa03212 100755
+--- a/lib/ssmuse/ssmuse_platforms.sh
++++ b/lib/ssmuse/ssmuse_platforms.sh
+@@ -81,6 +81,9 @@ get_plat_arch() {
+ 		ppc|ppc64|power*)
+ 			plat_arch=$(get_power_plat_arch)
+ 			;;
++		armv6l)
++			plat_arch=armv6l-32
++			;;
+ 		*)
+ 			plat_arch="unk-unk"
+ 			;;

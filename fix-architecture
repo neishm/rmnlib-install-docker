@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+for dir in *_linux26-x86-64; do
+mv $dir ${dir%_linux26-x86-64}_$(uname -s)-$(uname -m)
+done
+
+sed -i "s/_linux26-x86-64/_$(uname -s)-$(uname -m)/g" Makefile
+
+make /home/ssm/GIT_CACHE/ssmuse_fork.git VGRID_RELEASE=none
+pushd /home/ssm/GIT_CACHE/ssmuse_fork.git
+git apply /tmp/ssmuse_platforms.sh.patch
+echo "debian-8.0-armv6l-32 raspbian-8.0-armv6l-32 Linux-armv6l:" > etc/ssmuse/platforms/debian/debian-8.0-armv6l-32
+popd
+
