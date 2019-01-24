@@ -14,6 +14,7 @@ pushd /home/ssm/GIT_CACHE/ssmuse_fork.git
 git apply /tmp/ssmuse_platforms.sh.patch
 # Add arm architectures to the database.
 echo "debian-8.0-armv6l-32 raspbian-8.0-armv6l-32 Linux-armv6l:" > etc/ssmuse/platforms/debian/debian-8.0-armv6l-32
+echo "debian-8.0-armv7l-32 raspbian-8.0-armv7l-32 Linux-armv7l:" > etc/ssmuse/platforms/debian/debian-8.0-armv7l-32
 # Add Linux-x86_64 variant to linux26-x86-64
 # (this is the architecture that's used when the "fix" is applied to
 # an x86 system).
