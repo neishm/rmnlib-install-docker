@@ -10,7 +10,18 @@ sed -i "s/_linux26-x86-64/_$(uname -s)-$(uname -m)/g" Makefile
 
 make /home/ssm/GIT_CACHE/ssmuse_fork.git VGRID_RELEASE=none
 pushd /home/ssm/GIT_CACHE/ssmuse_fork.git
+# Add arm detection to ssmuse_platforms.
 git apply /tmp/ssmuse_platforms.sh.patch
+# Add arm architectures to the database.
 echo "debian-8.0-armv6l-32 raspbian-8.0-armv6l-32 Linux-armv6l:" > etc/ssmuse/platforms/debian/debian-8.0-armv6l-32
+# Add Linux-x86_64 variant to linux26-x86-64
+# (this is the architecture that's used when the "fix" is applied to
+# an x86 system).
+sed -i 's/^linux26-x86-64.*/Linux-x86_64 \0/' etc/ssmuse/platforms/linux26/linux26-x86-64
+# Commit these changes so they get picked up by rmnlib-install.
+git add .
+git config --add user.name "ssm"
+git config --add user.email "ssm@localhost"
+git commit --message="Add more architectures."
 popd
 
