@@ -21,8 +21,19 @@ echo "debian-8.0-armv7l-32 raspbian-8.0-armv7l-32 Linux-armv7l:" > etc/ssmuse/pl
 sed -i 's/^linux26-x86-64.*/Linux-x86_64 \0/' etc/ssmuse/platforms/linux26/linux26-x86-64
 # Commit these changes so they get picked up by rmnlib-install.
 git add .
-git config --add user.name "ssm"
-git config --add user.email "ssm@localhost"
+git config --global --add user.name "ssm"
+git config --global --add user.email "ssm@localhost"
 git commit --message="Add more architectures."
 popd
-
+# Define compiler rules and macros for arm
+make /home/ssm/GIT_CACHE/code-tools VGRID_RELEASE=none
+pushd /home/ssm/GIT_CACHE/code-tools
+mkdir -p include/Linux_armv6l/gfortran
+cp include/Linux_x86-64/gfortran/rpn_macros_arch.h include/Linux_armv6l/gfortran/
+sed 's/-DAmd64=Amd64//;/[FC]C_options/s/ -m[^ ]*//g;' include/Linux_x86-64/gfortran/Compiler_rules > include/Linux_armv6l/gfortran/Compiler_rules
+pushd include/
+ln -s Linux_armv6l Linux_armv7l
+popd
+git add .
+git commit --message="Add arm rules."
+popd
