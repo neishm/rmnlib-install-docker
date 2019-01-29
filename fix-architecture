@@ -36,3 +36,12 @@ popd
 git add .
 git commit --message="Add arm rules."
 popd
+
+
+# Handle arm architectures.
+arch=$(uname -m)
+# Disable inline assembly call for perftools.
+if [ "$arch" == "armv6l" -o "$arch" == "armv7l" ]; then
+sed -i 's/use_rdtsc=1/use_rdtsc=0/;/^ *asm/d' perf-tools_1.1_linux26-armv6l/src/JIO/jio-uni-2.c
+sed -i 's/-m32//;/linux-64/d' perf-tools_1.1_linux26-armv6l/src/JIO/Makefile
+fi
