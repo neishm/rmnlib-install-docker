@@ -17,11 +17,11 @@ endif
 %.04: Dockerfile.template
 	echo "# Auto-generated from $< - do not edit!\n" > Dockerfile
 	sed 's/$$DISTRO/ubuntu:$@/;s/$$VGRID_RELEASE/$(VGRID_RELEASE)/' $< >> Dockerfile
-	sudo docker build --tag rmnlib-install-$@ $(EXTRA_TAGS) .
+	sudo docker build --force-rm --tag rmnlib-install-$@ $(EXTRA_TAGS) .
 	@echo rmnlib-install-$@ is now ready to use.
 
 jessie: Dockerfile.template
 	echo "# Auto-generated from $< - do not edit!\n" > Dockerfile
 	sed 's!$$DISTRO!balenalib/rpi-raspbian:jessie!;s/$$VGRID_RELEASE/$(VGRID_RELEASE)/' $< >> Dockerfile
-	sudo docker build --tag rmnlib-install-$@ $(EXTRA_TAGS) .
+	sudo docker build --force-rm --tag rmnlib-install-$@ $(EXTRA_TAGS) .
 	@echo rmnlib-install-$@ is now ready to use.
