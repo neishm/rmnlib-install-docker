@@ -1,0 +1,26 @@
+diff --git a/rpncomm/RPN_COMM_wtime.c b/rpncomm/RPN_COMM_wtime.c
+index 543172a..c3e3feb 100644
+--- a/rpncomm/RPN_COMM_wtime.c
++++ b/rpncomm/RPN_COMM_wtime.c
+@@ -58,11 +58,16 @@ static ticks t0;
+ static double cpu_mult=1.0E-9;  /* 1GHz */
+ static ticks getticks(void)
+ {
+-     unsigned a, d;
+-     asm("cpuid");
+-     asm volatile("rdtsc" : "=a" (a), "=d" (d));
+-
+-     return (((ticks)a) | (((ticks)d) << 32));
++  static long long last=0;  /* kept in nanoseconds, even if gettimeofday has at best microsec resolution */
++  long long int elapsed;
++  struct timeval tp;
++  gettimeofday(&tp, NULL);
++  elapsed=tp.tv_sec;
++  elapsed=elapsed*1000000000;
++  elapsed=elapsed+tp.tv_usec*1000;
++  if (last == 0 ) { last = elapsed ;}  /* initialize last */
++  if (elapsed<=last) elapsed=++last;   /* never return same value twice */
++  return (ticks)elapsed;  /* time in nanoseconds */
+ }
+ 
+ #endif

@@ -29,6 +29,7 @@ USER ssm
 #TODO
 COPY ./fix-architecture /tmp/
 COPY ./ssmuse_platforms.sh.patch /tmp/
+COPY ./RPN_COMM_wtime.c.patch /tmp/
 RUN /tmp/fix-architecture
 RUN make auto-install VGRID_RELEASE=$VGRID_RELEASE
 
