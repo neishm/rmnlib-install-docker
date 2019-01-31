@@ -3,7 +3,7 @@
 set -e
 
 # Only fudge the architecture for non-x86-64 systems.
-[ "$(uname -m)" == "x86-64" ] && exit 0
+[ "$(uname -m)" == "x86_64" ] && exit 0
 
 for dir in *_linux26-x86-64; do
 mv $dir ${dir%-x86-64}-$(uname -m)
@@ -47,6 +47,4 @@ sed -i 's/-m32//;/linux-64/d' perf-tools_1.1_linux26-armv6l/src/JIO/Makefile
 fi
 # Copy alternative timing routine from pertools to rpncomm.
 # Avoids using x86 inline assembly.
-# Also, freeze the rpncomm source on a known good commit.
-# Some later commit (Jan 2019) seems to be causing a build failure?
-sed -i 's:^git checkout.*:git checkout a0008d0e9f56a0c7f47581ab7a7e0454e26529f1\ngit apply /tmp/RPN_COMM_wtime.c.patch:' rpncomm_4.5.16_linux26-$(uname -m)/.ssm.d/post-install
+sed -i 's:^git checkout.*:\0\ngit apply /tmp/RPN_COMM_wtime.c.patch:' rpncomm_4.5.16_linux26-$(uname -m)/.ssm.d/post-install
