@@ -1,16 +1,32 @@
 This is a recipe for building a Docker image of the [rmnlib-install](https://github.com/mfvalin/rmnlib-install) package.
 
-To build:
-```sh
-# Docker is required for the build process.
-# You may need to adapt this command for the package manager of your distro.
-sudo apt-get install docker.io
+Prerequisites:
+--------------
 
-# The Makefile will take care of the rest.
+First, install docker.  On recent Debian / Ubuntu systems this can be done by
+running
+```sh
+sudo apt-get install docker.io
+```
+Or, to get the latest version supported on your system, you could cross your fingers and run
+```sh
+curl -sSL https://get.docker.com | sh
+```
+
+Building:
+---------
+
+To build the image, run:
+```sh
 make
 ```
 
-This will generate a docker image called `rmnlib-install`.  You can start an interactive container by running
+This will generate a docker image called `rmnlib-install`.
+
+Using:
+------
+
+You can start an interactive container by running
 ```sh
 sudo docker run --rm -it rmnlib-install bash
 ```
