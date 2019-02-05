@@ -26,10 +26,11 @@ RUN apt-get install -y ssh-client
 RUN apt-get install -y less
 USER ssm
 
-#TODO
-COPY ./fix-architecture /tmp/
-COPY ./ssmuse_platforms.sh.patch /tmp/
-COPY ./RPN_COMM_wtime.c.patch /tmp/
+# Patch in support for some ARM architectures.
+COPY ./arm/fix-architecture /tmp/
+COPY ./arm/ssmuse_fork.patch /tmp/
+COPY ./arm/code-tools.patch /tmp/
+COPY ./arm/rpncomm.patch /tmp/
 RUN /tmp/fix-architecture
 RUN make auto-install VGRID_RELEASE=$VGRID_RELEASE
 

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -e
+
+arch=$(uname -m | tr '_' '-')
+
+# Fudge the rmnlib-install architecture for non-x86-64 systems.
+if [ "$arch" != "x86-64" ]; then
+  for dir in *_linux26-x86-64; do
+    mv $dir ${dir%-x86-64}-$(uname -m)
+  done
+  sed -i "s/_linux26-x86-64/_linux26-${arch}/g" Makefile
+fi
+
+make /home/ssm/GIT_CACHE/ssmuse_fork.git VGRID_RELEASE=none
+pushd /home/ssm/GIT_CACHE/ssmuse_fork.git
+# Add arm detection to ssmuse_platforms.
+git apply /tmp/ssmuse_fork.patch
+# Commit these changes so they get picked up by rmnlib-install.
+git add .
+git config --global --add user.name "ssm"
+git config --global --add user.email "ssm@localhost"
+git commit --message="Add more architectures."
+popd
+# Define compiler rules and macros for arm
+make /home/ssm/GIT_CACHE/code-tools VGRID_RELEASE=none
+pushd /home/ssm/GIT_CACHE/code-tools
+git apply /tmp/code-tools.patch
+git add .
+git commit --message="Add arm rules."
+popd
+
+
+# Disable inline assembly call for perftools.
+if [ "$arch" == "armv6l" -o "$arch" == "armv7l" ]; then
+sed -i 's/use_rdtsc=1/use_rdtsc=0/;/^ *asm/d' perf-tools_1.1_linux26-armv6l/src/JIO/jio-uni-2.c
+sed -i 's/-m32//;/linux-64/d' perf-tools_1.1_linux26-armv6l/src/JIO/Makefile
+fi
+# Copy alternative timing routine from pertools to rpncomm.
+# Avoids using x86 inline assembly.
+sed -i 's:^git checkout.*:\0\ngit apply /tmp/rpncomm.patch:' rpncomm_4.5.16_linux26-${arch}/.ssm.d/post-install

@@ -1,0 +1,31 @@
+diff --git a/etc/ssmuse/platforms/debian/debian-8.0-armv6l-32 b/etc/ssmuse/platforms/debian/debian-8.0-armv6l-32
+new file mode 100644
+index 0000000..4dd06de
+--- /dev/null
++++ b/etc/ssmuse/platforms/debian/debian-8.0-armv6l-32
+@@ -0,0 +1 @@
++debian-8.0-armv6l-32 linux26-armv6l:
+diff --git a/etc/ssmuse/platforms/debian/debian-8.0-armv7l-32 b/etc/ssmuse/platforms/debian/debian-8.0-armv7l-32
+new file mode 100644
+index 0000000..13817df
+--- /dev/null
++++ b/etc/ssmuse/platforms/debian/debian-8.0-armv7l-32
+@@ -0,0 +1 @@
++debian-8.0-armv7l-32 linux26-armv7l:
+diff --git a/lib/ssmuse/ssmuse_platforms.sh b/lib/ssmuse/ssmuse_platforms.sh
+index bf5b9f4..bc7d6e6 100755
+--- a/lib/ssmuse/ssmuse_platforms.sh
++++ b/lib/ssmuse/ssmuse_platforms.sh
+@@ -81,6 +81,12 @@ get_plat_arch() {
+ 		ppc|ppc64|power*)
+ 			plat_arch=$(get_power_plat_arch)
+ 			;;
++		armv6l)
++			plat_arch=armv6l-32
++			;;
++		armv7l)
++			plat_arch=armv7l-32
++			;;
+ 		*)
+ 			plat_arch="unk-unk"
+ 			;;
