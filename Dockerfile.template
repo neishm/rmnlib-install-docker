@@ -6,7 +6,10 @@ LABEL source="https://github.com/neishm/rmnlib-install-docker"
 # Some dependencies needed for the server.
 RUN apt-get update && apt-get install -y git make libssl-dev ksh gfortran libopenmpi-dev python liburi-perl wget libncurses5-dev libc6-dev openmpi-bin rsync
 # Some additional packages for interactive work.
-RUN apt-get install -y vim
+RUN apt-get update && apt-get install -y vim
+
+# Extra packages not included in minimal distros
+RUN apt-get update && apt-get install -y ssh-client less
 
 # Create non-privileged account for compiling and installing ssm packages.
 RUN groupadd -g 999 ssm || true
@@ -19,12 +22,6 @@ WORKDIR /home/ssm
 RUN git clone https://github.com/mfvalin/rmnlib-install.git 
 WORKDIR /home/ssm/rmnlib-install
 RUN git fetch && git checkout bd9856c7d0df123542c9a9782b3e41d5d938bfcf
-
-# Extra packages not included in minimal distros
-USER root
-RUN apt-get install -y ssh-client
-RUN apt-get install -y less
-USER ssm
 
 # Patch in support for some ARM architectures.
 COPY ./arm/fix-architecture /tmp/
