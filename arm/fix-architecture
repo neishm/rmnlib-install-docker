@@ -29,7 +29,13 @@ git apply /tmp/code-tools.patch
 git add .
 git commit --message="Add arm rules."
 popd
-
+# Define ORDENV_PLAT for arm.
+make /home/ssm/GIT_CACHE/dot-profile-setup VGRID_RELEASE=none
+pushd /home/ssm/GIT_CACHE/dot-profile-setup
+git apply /tmp/dot-profile-setup.patch
+git add .
+git commit --message="Multiple architecture support in ORDENV_PLAT."
+popd
 
 # Disable inline assembly call for perftools.
 if [ "$arch" == "armv6l" -o "$arch" == "armv7l" ]; then

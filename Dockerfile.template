@@ -30,8 +30,11 @@ USER ssm
 COPY ./arm/fix-architecture /tmp/
 COPY ./arm/ssmuse_fork.patch /tmp/
 COPY ./arm/code-tools.patch /tmp/
+COPY ./arm/dot-profile-setup.patch /tmp/
 COPY ./arm/rpncomm.patch /tmp/
 RUN /tmp/fix-architecture
+
+# Build and install the rmnlib envrionment.
 RUN make auto-install VGRID_RELEASE=$VGRID_RELEASE
 
 # Auto-load profile for interactive sessions.

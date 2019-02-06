@@ -1,0 +1,26 @@
+diff --git a/bin/.profile_00000 b/bin/.profile_00000
+index 0a88340..b0cbc76 100644
+--- a/bin/.profile_00000
++++ b/bin/.profile_00000
+@@ -38,7 +38,7 @@ then
+   # setup to clear TMPDIRs at exit
+   trap "r.cleanup_tmpdir" EXIT
+ 
+-  export ORDENV_PLAT=linux26-x86-64
++  export ORDENV_PLAT=linux26-$(uname -m | tee '_' '-')
+ else
+ 
+   [[ -z "${ARMNLIB}${AFSISIO}" ]] && s.echo -v 5 "SETUP already done, will not redo"
+diff --git a/bin/.profile_zzzzz b/bin/.profile_zzzzz
+index 10de4d8..a640841 100644
+--- a/bin/.profile_zzzzz
++++ b/bin/.profile_zzzzz
+@@ -1,7 +1,7 @@
+ if [[ "$SETUP_DONE" != "1" ]]
+ then
+ #  [[ -n $BASH_VERSION ]] && [[ -r /unique/armnssm/MODULES/Modules-tcl/3.2.10/init/bash ]] && source /unique/armnssm/MODULES/Modules-tcl/3.2.10/init/bash
+-  export ORDENV_PLAT=linux26-x86-64
++  export ORDENV_PLAT=linux26-$(uname -m | tee '_' '-')
+   [[ -n $BASH_VERSION ]] && [[ ! -f $HOME/.lmod ]] && [[ -f $HOME/.tmod ]] && \
+     [[ -r /unique/armnssm/MODULES/Modules-C/Modules/3.2.10/init/bash ]] && \
+     source /unique/armnssm/MODULES/Modules-C/Modules/3.2.10/init/bash
