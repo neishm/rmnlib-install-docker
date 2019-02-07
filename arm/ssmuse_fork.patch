@@ -12,6 +12,20 @@ index 0000000..13817df
 +++ b/etc/ssmuse/platforms/debian/debian-8.0-armv7l-32
 @@ -0,0 +1 @@
 +debian-8.0-armv7l-32 linux26-armv7l:
+diff --git a/etc/ssmuse/platforms/linux26/linux26-armv6l b/etc/ssmuse/platforms/linux26/linux26-armv6l
+new file mode 100644
+index 0000000..680bc7e
+--- /dev/null
++++ b/etc/ssmuse/platforms/linux26/linux26-armv6l
+@@ -0,0 +1 @@
++linux26-armv6l:
+diff --git a/etc/ssmuse/platforms/linux26/linux26-armv7l b/etc/ssmuse/platforms/linux26/linux26-armv7l
+new file mode 100644
+index 0000000..8ae4ce2
+--- /dev/null
++++ b/etc/ssmuse/platforms/linux26/linux26-armv7l
+@@ -0,0 +1 @@
++linux26-armv7l:
 diff --git a/lib/ssmuse/ssmuse_platforms.sh b/lib/ssmuse/ssmuse_platforms.sh
 index bf5b9f4..bc7d6e6 100755
 --- a/lib/ssmuse/ssmuse_platforms.sh
