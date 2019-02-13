@@ -32,7 +32,8 @@ COPY ./arm/rpncomm.patch /tmp/
 RUN /tmp/fix-architecture
 
 # Build and install the rmnlib envrionment.
-RUN make auto-install VGRID_RELEASE=$VGRID_RELEASE
+# Clean up build files afterwards, to reduce the image size.
+RUN make auto-install VGRID_RELEASE=$VGRID_RELEASE && rm -Rf /home/ssm/GIT_CACHE/* /home/ssm/SSM_CACHE/* /home/ssm/ssm_depot/*
 
 # Auto-load profile for interactive sessions.
 RUN echo . $HOME/.profile_armnlib >> $HOME/.bashrc
