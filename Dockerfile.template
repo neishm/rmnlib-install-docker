@@ -33,7 +33,12 @@ RUN /tmp/fix-architecture
 
 # Build and install the rmnlib envrionment.
 # Clean up build files afterwards, to reduce the image size.
-RUN make auto-install VGRID_RELEASE=$VGRID_RELEASE && rm -Rf /home/ssm/GIT_CACHE/* /home/ssm/SSM_CACHE/* /home/ssm/ssm_depot/*
+# Also clean up some test data from ARMNLIB.
+COPY ./scripts/cleanup /tmp/
+RUN make auto-install VGRID_RELEASE=$VGRID_RELEASE && /tmp/cleanup && rm -Rf \
+  /home/ssm/ssm-domains-base/env_003/armnlib_2.0u_all/not_shared/data/SAMPLES \
+  /home/ssm/ssm-domains-base/env_003/armnlib_2.0u_all/not_shared/data/fstd_test\
+  /home/ssm/ssm-domains-base/env_003/armnlib_2.0u_all/not_shared/data/GEO*
 
 # Auto-load profile for interactive sessions.
 RUN echo . $HOME/.profile_armnlib >> $HOME/.bashrc

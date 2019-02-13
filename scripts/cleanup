@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Clean up cache files to reduce image size.
+rm -Rf /home/ssm/GIT_CACHE/* /home/ssm/SSM_CACHE/* /home/ssm/ssm_depot/*
+
+# Clean up .git histories
+rm -Rf $(find /home/ssm/ssm-domains-base/ -name .git)
+
