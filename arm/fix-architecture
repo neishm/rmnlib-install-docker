@@ -29,6 +29,14 @@ git apply /tmp/code-tools.patch
 git add .
 git commit --message="Add arm rules."
 popd
+# Define arm platforms for RDE.
+make /home/ssm/GIT_CACHE/rde_1.0.8e_all VGRID_RELEASE=none
+pushd /home/ssm/GIT_CACHE/rde_1.0.8e_all
+git checkout export
+git apply /tmp/rde_1.0.8e_all.patch
+git add .
+git commit --message="Add ARM platforms."
+popd
 
 # Disable inline assembly call for perftools.
 if [ "$arch" == "armv6l" -o "$arch" == "armv7l" ]; then

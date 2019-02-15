@@ -1,0 +1,54 @@
+diff --git a/bin/.rdessmarch b/bin/.rdessmarch
+index 3748a62..cbcd5db 100755
+--- a/bin/.rdessmarch
++++ b/bin/.rdessmarch
+@@ -9,5 +9,7 @@ myarch=${1:-${BASE_ARCH}}
+ [[ x$myarch == xLinux ]] && echo linux26-i686 && exit 0
+ [[ x$myarch == xAIX-powerpc7 ]] && echo aix61-ppc-64 && exit 0
+ [[ x$myarch == xLinux_x86-64 ]] && echo linux26-x86-64 && exit 0
++[[ x$myarch == xLinux_armv6l ]] && echo linux26-armv6l && exit 0
++[[ x$myarch == xLinux_armv7l ]] && echo linux26-armv7l && exit 0
+ echo multi
+ exit 0
+diff --git a/bin/rdevar b/bin/rdevar
+index 5511631..b4a8cbc 100755
+--- a/bin/rdevar
++++ b/bin/rdevar
+@@ -29,10 +29,14 @@ if [[ x$RDE_USE_OLD_ARCH != x1 ]] ; then
+    #export RDE_KNOWN_BASE_ARCH0="linux26-x86-64 rhel-6.0-amd64-64 ubuntu-10.04-amd64-64 ubuntu-12.04-amd64-64 ubuntu-14.04-amd64-64 aix-7.1-ppc7-64 sles-11-amd64-64 sles-11-haswell-64 sles-11-haswell-64-xc40 sles-11-broadwell-64 sles-11-broadwell-64-xc40"
+    export RDE_KNOWN_BASE_ARCH0="
+  Linux_x86-64 
++ Linux_armv6l
++ Linux_armv7l
+  "
+    export RDE_KNOWN_BASE_ARCH="${RDE_KNOWN_BASE_ARCH:-$RDE_KNOWN_BASE_ARCH0}"
+    export RDE_KNOWN_BASE_ARCH_OLD="
+  Linux_x86-64:Linux_x86-64 
++ Linux_armv6l:Linux_armv6l
++ Linux_armv7l:Linux_armv7l
+  " 
+    export RDE_BASE_ARCH_EQUIV_LIST0="
+  Linux_x86-64:linux26-x86-64
+@@ -45,6 +49,8 @@ if [[ x$RDE_USE_OLD_ARCH != x1 ]] ; then
+  Linux_x86-64:sles-11-haswell-64-xc40 
+  Linux_x86-64:sles-11-broadwell-64 
+  Linux_x86-64:sles-11-broadwell-64-xc40
++ Linux_armv6l:linux26-armv6l
++ Linux_armv7l:linux26-armv7l
+  "
+    export RDE_BASE_ARCH_EQUIV_LIST="${RDE_BASE_ARCH_EQUIV_LIST:-$RDE_BASE_ARCH_EQUIV_LIST0}"
+    #TODO: export RDE_KNOWN_ARCH=
+diff --git a/include/Linux_armv6l/gfortran/setenv.dot b/include/Linux_armv6l/gfortran/setenv.dot
+new file mode 100644
+index 0000000..e69de29
+diff --git a/include/Linux_armv6l/gfortran/ssmuse_dep.bndl b/include/Linux_armv6l/gfortran/ssmuse_dep.bndl
+new file mode 100644
+index 0000000..e69de29
+diff --git a/include/Linux_armv7l b/include/Linux_armv7l
+new file mode 120000
+index 0000000..e364f2e
+--- /dev/null
++++ b/include/Linux_armv7l
+@@ -0,0 +1 @@
++Linux_armv6l
+\ No newline at end of file

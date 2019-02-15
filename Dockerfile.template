@@ -27,6 +27,7 @@ RUN git fetch && git checkout bd9856c7d0df123542c9a9782b3e41d5d938bfcf
 COPY ./arm/fix-architecture /tmp/
 COPY ./arm/ssmuse_fork.patch /tmp/
 COPY ./arm/code-tools.patch /tmp/
+COPY ./arm/rde_1.0.8e_all.patch /tmp/
 COPY ./arm/rpncomm.patch /tmp/
 RUN /tmp/fix-architecture
 
